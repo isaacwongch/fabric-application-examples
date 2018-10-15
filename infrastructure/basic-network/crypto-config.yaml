@@ -24,8 +24,8 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # Org1
   # ---------------------------------------------------------------------------
-  - Name: Org1
-    Domain: org1.example.com
+  - Name: ManetoCorp
+    Domain: magnetoCorp.example.com
     # ---------------------------------------------------------------------------
     # "Specs"
     # ---------------------------------------------------------------------------
@@ -70,3 +70,15 @@ PeerOrgs:
     # ---------------------------------------------------------------------------
     Users:
       Count: 1
+   - Name: DigiBank
+    Domain: digibank.example.com
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+   - Name: HedgeMatic
+    Domain: hedgematic.example.com
+    Template:
+      Count: 1
+    Users:
+      Count: 2
