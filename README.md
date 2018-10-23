@@ -1,4 +1,13 @@
-# Fabric Application Examples	
+# Extending the Commercial Paper Network
+
+![cp.network](./resource/develop.diagram.1.png)
+
+https://blog.daemonl.com/2016/02/yaml.html
+
+## An In-Depth Look on onfigtx.yaml
+
+
+# Fabric Application Examples
 
 A test and demo repo showing how the programming model works. Code is AS-IS, and may change.
 

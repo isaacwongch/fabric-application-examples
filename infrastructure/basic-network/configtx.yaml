@@ -16,24 +16,24 @@ Organizations:
 
     # SampleOrg defines an MSP using the sampleconfig.  It should never be used
     # in production but may be used as a template for other definitions
-    - &OrdererOrg
+    - &CentralBank
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: OrdererOrg
+        Name: CentralBank
 
         # ID to load the MSP definition as
-        ID: OrdererMSP
+        ID: CentralBankMSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
         MSPDir: crypto-config/ordererOrganizations/example.com/msp
 
-    - &Org1
+    - &MagnetoCorp
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Org1MSP
+        Name: MagnetoCorpMSP
 
         # ID to load the MSP definition as
-        ID: Org1MSP
+        ID: MagnetoCorpMSP
 
         MSPDir: crypto-config/peerOrganizations/org1.example.com/msp
 

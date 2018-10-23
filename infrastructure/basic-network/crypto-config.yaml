@@ -10,13 +10,13 @@ OrdererOrgs:
   # ---------------------------------------------------------------------------
   # Orderer
   # ---------------------------------------------------------------------------
-  - Name: Orderer
-    Domain: example.com
+  - Name: CentralBank
+    Domain: papernet.com
     # ---------------------------------------------------------------------------
     # "Specs" - See PeerOrgs below for complete description
     # ---------------------------------------------------------------------------
     Specs:
-      - Hostname: orderer
+      - Hostname: centralBank
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
 # ---------------------------------------------------------------------------
@@ -24,8 +24,8 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # Org1
   # ---------------------------------------------------------------------------
-  - Name: ManetoCorp
-    Domain: magnetoCorp.example.com
+  - Name: MagnetoCorp
+    Domain: magnetoCorp.papernet.com
     # ---------------------------------------------------------------------------
     # "Specs"
     # ---------------------------------------------------------------------------
@@ -71,13 +71,14 @@ PeerOrgs:
     Users:
       Count: 1
    - Name: DigiBank
-    Domain: digibank.example.com
+    Domain: digibank.papernet.com
+    EnableNodeOUs: true
     Template:
       Count: 2
     Users:
-      Count: 1
+      Count: 2
    - Name: HedgeMatic
-    Domain: hedgematic.example.com
+    Domain: hedgematic.papernet.com
     Template:
       Count: 1
     Users:
