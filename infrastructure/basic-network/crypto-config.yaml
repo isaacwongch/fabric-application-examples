@@ -70,14 +70,14 @@ PeerOrgs:
     # ---------------------------------------------------------------------------
     Users:
       Count: 1
-   - Name: DigiBank
+  - Name: DigiBank
     Domain: digibank.papernet.com
     EnableNodeOUs: true
     Template:
       Count: 2
     Users:
       Count: 2
-   - Name: HedgeMatic
+  - Name: HedgeMatic
     Domain: hedgematic.papernet.com
     Template:
       Count: 1

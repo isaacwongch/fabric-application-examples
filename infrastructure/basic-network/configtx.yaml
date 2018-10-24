@@ -25,23 +25,57 @@ Organizations:
         ID: CentralBankMSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
-        MSPDir: crypto-config/ordererOrganizations/example.com/msp
+        MSPDir: crypto-config/ordererOrganizations/papernet.com/msp
 
     - &MagnetoCorp
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: MagnetoCorpMSP
+        Name: MagnetoCorp
 
         # ID to load the MSP definition as
         ID: MagnetoCorpMSP
 
-        MSPDir: crypto-config/peerOrganizations/org1.example.com/msp
+        MSPDir: crypto-config/peerOrganizations/magnetoCorp.papernet.com/msp
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org1.example.com
+            - Host: peer0.magnetoCorp.papernet.com
+              Port: 7051
+
+    - &DigiBank
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: DigiBank
+
+        # ID to load the MSP definition as
+        ID: DigiBankMSP
+
+        MSPDir: crypto-config/peerOrganizations/digibank.papernet.com/msp
+
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.digibank.papernet.com
+              Port: 7051
+
+    - &HedgeMatic
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: HedgeMatic
+
+        # ID to load the MSP definition as
+        ID: HedgeMaticMSP
+
+        MSPDir: crypto-config/peerOrganizations/hedgematic.papernet.com/msp
+
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.hedgematic.papernet.com
               Port: 7051
 
 ################################################################################
@@ -73,7 +107,7 @@ Orderer: &OrdererDefaults
     OrdererType: solo
 
     Addresses:
-        - orderer.example.com:7050
+        - centralBank.papernet.com:7050
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -113,19 +147,23 @@ Orderer: &OrdererDefaults
 ################################################################################
 Profiles:
 
-    OneOrgOrdererGenesis:
+    SystemGenesis:
         Orderer:
             <<: *OrdererDefaults
             Organizations:
-                - *OrdererOrg
+                - *CentralBank
         Consortiums:
-            SampleConsortium:
+            PapernetConsortium:
                 Organizations:
-                    - *Org1
-    OneOrgChannel:
-        Consortium: SampleConsortium
+                    - *MagnetoCorp
+                    - *DigiBank
+                    - *HedgeMatic
+    PapernetChannel:
+        Consortium: PapernetConsortium
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Org1
+                - *MagnetoCorp
+                - *DigiBank
+                - *HedgeMatic
 

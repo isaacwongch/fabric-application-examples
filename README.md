@@ -2,9 +2,14 @@
 
 ![cp.network](./resource/develop.diagram.1.png)
 
-https://blog.daemonl.com/2016/02/yaml.html
+## An In-Depth Look on configtx.yaml
 
-## An In-Depth Look on onfigtx.yaml
+
+## To-do List
+* Storing off-chain data such as the certificate using IPFS
+* A master-details data structure demonstration
+
+## Schedule
 
 
 # Fabric Application Examples
