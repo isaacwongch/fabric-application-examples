@@ -8,6 +8,8 @@
 ## To-do List
 * Storing off-chain data such as the certificate using IPFS
 * A master-details data structure demonstration
+* Using Fabric CA in the network
+* Deploy the network on Kubernetes
 
 ## Schedule
 
