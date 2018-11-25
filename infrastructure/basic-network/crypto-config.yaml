@@ -11,7 +11,7 @@ OrdererOrgs:
   # Orderer
   # ---------------------------------------------------------------------------
   - Name: MiddleBank
-    Domain: middleBank.papernet.com
+    Domain: papernet.com
     # ---------------------------------------------------------------------------
     # "Specs" - See PeerOrgs below for complete description
     # ---------------------------------------------------------------------------
