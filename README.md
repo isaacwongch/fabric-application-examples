@@ -6,7 +6,7 @@ The aim of this project is to walk you through every little step in creating a r
 
 ## An In-Depth Look on configtx.yaml
 
-In the PaperNet network, we define a consortium called PapernetConsortium which includes three organizations -- DigiBank, MangetoCorp and HedgeMatic. On the other hand, we have another organization called MiddleBank to be the orderer organization. Note that MiddleBank is not part of the consortium, this servers act as legal indepedant unit that will not participate in any transaction.
+In the PaperNet network, we define a consortium called PapernetConsortium which includes three organizations -- DigiBank, MangetoCorp and HedgeMatic. On the other hand, we have another organization called MiddleBank to be the orderer organization. Note that MiddleBank is not part of the consortium, this serves act as an indepedant unit that will not participate in any transactions.
 
 ```yaml
 Profiles:
@@ -45,6 +45,170 @@ A few points to note from the above YAML.
 
 The created genesis block will be referenced by the docker-compose file while creating the orderer container (environemnt & volume)
 
+## Create Cryptographic Materials for Network Identities
+
+In a production environment, we probably will not use cryptogen tool to create the cryptographic material for those network entities. This tool is solely for demo purpose because it is not desirable to distribute the private key across the network. A good practice should be using Fabric CA or CA instead.
+
+Network Entities presented in PaperNet:
+
+* DigiBank (2 peers, 2 users and 1 admin with NodeOU enabled)
+* MagnetoCorp (1 peer, 2 user and 1 admin)
+* HedgeMatic (1 peer, 1 user and 1 admin with NodeOU enabled)
+
+```
+ordererOrganizations
+│   └── papernet.com
+│       ├── ca
+│       ├── msp
+│       │   ├── admincerts
+│       │   ├── cacerts
+│       │   └── tlscacerts
+│       ├── orderers
+│       │   └── middleBank.papernet.com
+│       │       ├── msp
+│       │       │   ├── admincerts
+│       │       │   ├── cacerts
+│       │       │   ├── keystore
+│       │       │   ├── signcerts
+│       │       │   └── tlscacerts
+│       │       └── tls
+│       ├── tlsca
+│       └── users
+│           └── Admin@papernet.com
+│               ├── msp
+│               │   ├── admincerts
+│               │   ├── cacerts
+│               │   ├── keystore
+│               │   ├── signcerts
+│               │   └── tlscacerts
+│               └── tls
+```
+```
+peerOrganizations
+    ├── digibank.papernet.com
+    │   ├── ca
+    │   ├── msp
+    │   │   ├── admincerts
+    │   │   ├── cacerts
+    │   │   └── tlscacerts
+    │   ├── peers
+    │   │   ├── peer0.digibank.papernet.com
+    │   │   │   ├── msp
+    │   │   │   │   ├── admincerts
+    │   │   │   │   ├── cacerts
+    │   │   │   │   ├── keystore
+    │   │   │   │   ├── signcerts
+    │   │   │   │   └── tlscacerts
+    │   │   │   └── tls
+    │   │   └── peer1.digibank.papernet.com
+    │   │       ├── msp
+    │   │       │   ├── admincerts
+    │   │       │   ├── cacerts
+    │   │       │   ├── keystore
+    │   │       │   ├── signcerts
+    │   │       │   └── tlscacerts
+    │   │       └── tls
+    │   ├── tlsca
+    │   └── users
+    │       ├── Admin@digibank.papernet.com
+    │       │   ├── msp
+    │       │   │   ├── admincerts
+    │       │   │   ├── cacerts
+    │       │   │   ├── keystore
+    │       │   │   ├── signcerts
+    │       │   │   └── tlscacerts
+    │       │   └── tls
+    │       ├── User1@digibank.papernet.com
+    │       │   ├── msp
+    │       │   │   ├── admincerts
+    │       │   │   ├── cacerts
+    │       │   │   ├── keystore
+    │       │   │   ├── signcerts
+    │       │   │   └── tlscacerts
+    │       │   └── tls
+    │       └── User2@digibank.papernet.com
+    │           ├── msp
+    │           │   ├── admincerts
+    │           │   ├── cacerts
+    │           │   ├── keystore
+    │           │   ├── signcerts
+    │           │   └── tlscacerts
+    │           └── tls
+    ├── hedgematic.papernet.com
+    │   ├── ca
+    │   ├── msp
+    │   │   ├── admincerts
+    │   │   ├── cacerts
+    │   │   └── tlscacerts
+    │   ├── peers
+    │   │   └── peer0.hedgematic.papernet.com
+    │   │       ├── msp
+    │   │       │   ├── admincerts
+    │   │       │   ├── cacerts
+    │   │       │   ├── keystore
+    │   │       │   ├── signcerts
+    │   │       │   └── tlscacerts
+    │   │       └── tls
+    │   ├── tlsca
+    │   └── users
+    │       ├── Admin@hedgematic.papernet.com
+    │       │   ├── msp
+    │       │   │   ├── admincerts
+    │       │   │   ├── cacerts
+    │       │   │   ├── keystore
+    │       │   │   ├── signcerts
+    │       │   │   └── tlscacerts
+    │       │   └── tls
+    │       ├── User1@hedgematic.papernet.com
+    │       │   ├── msp
+    │       │   │   ├── admincerts
+    │       │   │   ├── cacerts
+    │       │   │   ├── keystore
+    │       │   │   ├── signcerts
+    │       │   │   └── tlscacerts
+    │       │   └── tls
+    │       └── User2@hedgematic.papernet.com
+    │           ├── msp
+    │           │   ├── admincerts
+    │           │   ├── cacerts
+    │           │   ├── keystore
+    │           │   ├── signcerts
+    │           │   └── tlscacerts
+    │           └── tls
+    └── magnetoCorp.papernet.com
+        ├── ca
+        ├── msp
+        │   ├── admincerts
+        │   ├── cacerts
+        │   └── tlscacerts
+        ├── peers
+        │   └── peer0.magnetoCorp.papernet.com
+        │       ├── msp
+        │       │   ├── admincerts
+        │       │   ├── cacerts
+        │       │   ├── keystore
+        │       │   ├── signcerts
+        │       │   └── tlscacerts
+        │       └── tls
+        ├── tlsca
+        └── users
+            ├── Admin@magnetoCorp.papernet.com
+            │   ├── msp
+            │   │   ├── admincerts
+            │   │   ├── cacerts
+            │   │   ├── keystore
+            │   │   ├── signcerts
+            │   │   └── tlscacerts
+            │   └── tls
+            └── User1@magnetoCorp.papernet.com
+                ├── msp
+                │   ├── admincerts
+                │   ├── cacerts
+                │   ├── keystore
+                │   ├── signcerts
+                │   └── tlscacerts
+                └── tls
+```
 
 ## To-do List
 * Storing off-chain data such as the certificate using IPFS
@@ -54,3 +218,4 @@ The created genesis block will be referenced by the docker-compose file while cr
 * Use Kafka for the orderer
 * Use of private collection
 * Demonstrate service discovery capability
+* Meaning of CouchDB namespace

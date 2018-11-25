@@ -16,7 +16,7 @@ OrdererOrgs:
     # "Specs" - See PeerOrgs below for complete description
     # ---------------------------------------------------------------------------
     Specs:
-      - Hostname: middleBank
+      - Hostname: middlebank
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
 # ---------------------------------------------------------------------------
@@ -25,7 +25,8 @@ PeerOrgs:
   # Org1
   # ---------------------------------------------------------------------------
   - Name: MagnetoCorp
-    Domain: magnetoCorp.papernet.com
+    Domain: magnetocorp.papernet.com
+    EnableNodeOUs: true
     # ---------------------------------------------------------------------------
     # "Specs"
     # ---------------------------------------------------------------------------

@@ -16,13 +16,13 @@ Organizations:
 
     # SampleOrg defines an MSP using the sampleconfig.  It should never be used
     # in production but may be used as a template for other definitions
-    - &CentralBank
+    - &MiddleBank
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: CentralBank
+        Name: MiddleBank
 
         # ID to load the MSP definition as
-        ID: CentralBankMSP
+        ID: MiddleBankMSP
 
         # MSPDir is the filesystem path which contains the MSP configuration
         MSPDir: crypto-config/ordererOrganizations/papernet.com/msp
@@ -151,7 +151,7 @@ Profiles:
         Orderer:
             <<: *OrdererDefaults
             Organizations:
-                - *CentralBank
+                - *MiddleBank
         Consortiums:
             PapernetConsortium:
                 Organizations:
