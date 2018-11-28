@@ -1,6 +1,6 @@
 # Extending the Commercial Paper Network
 
-![cp.network](./resource/develop.diagram.1.png)
+![cp.network](./resource/develop.diagram.2.png)
 
 The aim of this project is to walk you through every little step in creating a realistic fabric network
 
