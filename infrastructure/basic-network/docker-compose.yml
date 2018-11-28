@@ -127,13 +127,13 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=debug
       - CORE_PEER_LOCALMSPID=DigiBankMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-      - CORE_PEER_ADDRESS=peer1.digibank.papernet.com:8051
+      - CORE_PEER_ADDRESS=peer1.digibank.papernet.com:7051
       # # the following setting starts chaincode containers on the same
       # # bridge network as the peers
       # # https://docs.docker.com/compose/networking/
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_papernet
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=peer1.digibank.couchdb:6984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=peer1.digibank.couchdb:5984
       # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
       # provide the credentials for ledger to connect to CouchDB.  The username and password must
       # match the username and password set for the associated CouchDB.
@@ -153,7 +153,7 @@ services:
         - ./config:/etc/hyperledger/configtx
     depends_on:
       - middlebank.papernet.com
-      - peer0.digibank.couchdb
+      - peer1.digibank.couchdb
     networks:
       - papernet
 
@@ -182,13 +182,13 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=debug
       - CORE_PEER_LOCALMSPID=MagnetoCorp
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-      - CORE_PEER_ADDRESS=peer0.magnetocorp.papernet.com:9051
+      - CORE_PEER_ADDRESS=peer0.magnetocorp.papernet.com:7051
       # # the following setting starts chaincode containers on the same
       # # bridge network as the peers
       # # https://docs.docker.com/compose/networking/
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_papernet
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=peer0.magnetocorp.couchdb:7984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=peer0.magnetocorp.couchdb:5984
       # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
       # provide the credentials for ledger to connect to CouchDB.  The username and password must
       # match the username and password set for the associated CouchDB.
