@@ -17,7 +17,7 @@ services:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.magnetoCorp.papernet.com
       - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.magnetoCorp.papernet.com-cert.pem
-      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/66d201952d8dc3b6270e6a4509dc6f0aacbbce9dcc544aad533d41512fc7ef9d_sk
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/e561a132a2fbf6290b738d2c90ac3a206c67feb0fc9547d25a7d9c5a65a8acc9_sk
     ports:
       - "7054:7054"
     command: sh -c 'fabric-ca-server start -b admin:adminpw'
@@ -33,9 +33,9 @@ services:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.digibank.papernet.com
       - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.digibank.papernet.com-cert.pem
-      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/03c43e62b3dba205edd4975ab55aa6cc97c0f236252c41f40d550a7aec27ad15_sk
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/f74d0a4812018e977d356df93b17d9348b64ce7e1c9f38099229c72dc78400ff_sk
     ports:
-      - "7054:7054"
+      - "8054:7054"
     command: sh -c 'fabric-ca-server start -b admin:adminpw'
     volumes:
       - ./crypto-config/peerOrganizations/digibank.papernet.com/ca/:/etc/hyperledger/fabric-ca-server-config
@@ -99,7 +99,7 @@ services:
         - ./crypto-config/peerOrganizations/digibank.papernet.com/users:/etc/hyperledger/msp/users
         - ./config:/etc/hyperledger/configtx
     depends_on:
-      - orderer.example.com
+      - middlebank.papernet.com
       - peer0.digibank.couchdb
     networks:
       - papernet
@@ -117,8 +117,8 @@ services:
     networks:
       - papernet
 
-  peer0.digibank.papernet.com:
-    container_name: peer0.digibank.papernet.com
+  peer1.digibank.papernet.com:
+    container_name: peer1.digibank.papernet.com
     image: hyperledger/fabric-peer
     environment:
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
@@ -127,13 +127,13 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=debug
       - CORE_PEER_LOCALMSPID=DigiBankMSP
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-      - CORE_PEER_ADDRESS=peer1.digibank.papernet.com:7051
+      - CORE_PEER_ADDRESS=peer1.digibank.papernet.com:8051
       # # the following setting starts chaincode containers on the same
       # # bridge network as the peers
       # # https://docs.docker.com/compose/networking/
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_papernet
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=peer1.digibank.couchdb:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=peer1.digibank.couchdb:6984
       # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
       # provide the credentials for ledger to connect to CouchDB.  The username and password must
       # match the username and password set for the associated CouchDB.
@@ -143,16 +143,16 @@ services:
     command: peer node start --peer-chaincodedev=true
     # command: peer node start --peer-chaincodedev=true
     ports:
-      - 7051:7051
-      - 7052:7052
-      - 7053:7053
+      - 8051:7051
+      - 8052:7052
+      - 8053:7053
     volumes:
         - /var/run/:/host/var/run/
         - ./crypto-config/peerOrganizations/digibank.papernet.com/peers/peer1.digibank.papernet.com/msp:/etc/hyperledger/msp/peer
         - ./crypto-config/peerOrganizations/digibank.papernet.com/users:/etc/hyperledger/msp/users
         - ./config:/etc/hyperledger/configtx
     depends_on:
-      - orderer.example.com
+      - middlebank.papernet.com
       - peer0.digibank.couchdb
     networks:
       - papernet
@@ -166,7 +166,7 @@ services:
       - COUCHDB_USER=
       - COUCHDB_PASSWORD=
     ports:
-      - 5984:5984
+      - 6984:5984
     networks:
       - papernet
 
@@ -182,13 +182,13 @@ services:
       - CORE_CHAINCODE_LOGGING_LEVEL=debug
       - CORE_PEER_LOCALMSPID=MagnetoCorp
       - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/msp/peer/
-      - CORE_PEER_ADDRESS=peer0.magnetocorp.papernet.com:7051
+      - CORE_PEER_ADDRESS=peer0.magnetocorp.papernet.com:9051
       # # the following setting starts chaincode containers on the same
       # # bridge network as the peers
       # # https://docs.docker.com/compose/networking/
       - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_papernet
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=peer0.magnetocorp.couchdb:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=peer0.magnetocorp.couchdb:7984
       # The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD
       # provide the credentials for ledger to connect to CouchDB.  The username and password must
       # match the username and password set for the associated CouchDB.
@@ -198,16 +198,16 @@ services:
     command: peer node start --peer-chaincodedev=true
     # command: peer node start --peer-chaincodedev=true
     ports:
-      - 7051:7051
-      - 7052:7052
-      - 7053:7053
+      - 9051:7051
+      - 9052:7052
+      - 9053:7053
     volumes:
         - /var/run/:/host/var/run/
         - ./crypto-config/peerOrganizations/magnetocorp.papernet.com/peers/peer0.magnetocorp.papernet.com/msp:/etc/hyperledger/msp/peer
         - ./crypto-config/peerOrganizations/magnetocorp.papernet.com/users:/etc/hyperledger/msp/users
         - ./config:/etc/hyperledger/configtx
     depends_on:
-      - orderer.example.com
+      - middlebank.papernet.com
       - peer0.magnetocorp.couchdb
     networks:
       - papernet
@@ -221,7 +221,7 @@ services:
       - COUCHDB_USER=
       - COUCHDB_PASSWORD=
     ports:
-      - 5984:5984
+      - 7984:5984
     networks:
       - papernet
 
